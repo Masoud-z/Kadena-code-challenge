@@ -1,28 +1,29 @@
-enum Positions {
+export enum Positions {
   manager = 0,
   employee = 1,
   Assistnat = 2,
 }
 
-enum Section {
+export enum Section {
   marketing = 0,
   sales = 1,
   hr = 2,
 }
 
-interface Employees {
+export interface Employees {
   name: string;
   position: Positions;
   id: number;
 }
 
-interface Manager extends Employees {
+export interface Manager extends Employees {
   phoneNumber: string;
   section: Section;
 }
 
-interface Assistnat extends Employees {
+export interface Assistant extends Employees {
   managerId: number;
 }
 
-type AllEmployee = Array<Employees | Manager | Assistnat>;
+export type AllEmployee = Employees | Manager | Assistant;
+export type AllEmployeeArr =Array<AllEmployee>;
