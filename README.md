@@ -5,8 +5,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 Using TypeScript and, TailwindCSS.
 
 Next version : "14.0.4"
+
 React version: "18"
+
 TypeScript version: "5"
+
 TailwindCSS version:"3.3.0"
 
 ## Getting Started
