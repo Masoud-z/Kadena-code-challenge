@@ -26,4 +26,5 @@ export interface Assistant extends Employees {
 }
 
 export type AllEmployee = Employees | Manager | Assistant;
-export type AllEmployeeArr =Array<AllEmployee>;
+
+export type AllEmployeeArr = Array<AllEmployee>;

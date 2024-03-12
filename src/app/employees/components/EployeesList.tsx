@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   AllEmployee,
   Manager,
@@ -6,6 +7,7 @@ import {
   AllEmployeeArr,
   Positions,
   Section,
+  Employees,
 } from "../../../../dto/employees.dto";
 
 interface Props {
@@ -13,12 +15,18 @@ interface Props {
 }
 
 function EployeesList({ employees }: Props) {
-  function typeChecker<T extends AllEmployee>(empl: AllEmployee, key: keyof T) {
-    if (empl.hasOwnProperty(key)) {
-      return (empl as T)[key];
-    } else {
-      return undefined;
-    }
+  function employeeTypeChecker<T extends AllEmployee>(
+    empl: Object,
+    key: keyof T
+  ): empl is T {
+    return key in empl;
+  }
+
+  function employeeParameterGetter<T extends AllEmployee>(
+    empl: Object,
+    key: keyof T
+  ) {
+    return employeeTypeChecker<T>(empl, key) ? empl[key] : "-";
   }
 
   return (
@@ -40,14 +48,15 @@ function EployeesList({ employees }: Props) {
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">{empl.id}</div>
             <div className="p-sm bg-grey font-bold w-[200px]">
-              {typeChecker<Manager>(empl, "phoneNumber")}
+              {employeeParameterGetter<Manager>(empl, "phoneNumber")}
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">
-              {typeChecker<Manager>(empl, "section") &&
-                Section[typeChecker<Manager>(empl, "section") as number]}
+              {employeeTypeChecker<Manager>(empl, "section")
+                ? Section[empl.section]
+                : "-"}
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">
-              {typeChecker<Assistant>(empl, "managerId")}
+              {employeeParameterGetter<Assistant>(empl, "managerId")}
             </div>
           </div>
         );
