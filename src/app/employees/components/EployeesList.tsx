@@ -1,13 +1,10 @@
 "use client";
-import { useState } from "react";
 import {
   AllEmployee,
   Manager,
-  Assistant,
   AllEmployeeArr,
   Positions,
-  Section,
-  Employees,
+  Assistant,
 } from "../../../../dto/employees.dto";
 
 interface Props {
@@ -15,19 +12,26 @@ interface Props {
 }
 
 function EployeesList({ employees }: Props) {
-  function employeeTypeChecker<T extends AllEmployee>(
-    empl: Object,
-    key: keyof T
-  ): empl is T {
-    return key in empl;
+  function employeeTypeChecker<TEmployee extends AllEmployee>(
+    empl: AllEmployee,
+    key: keyof TEmployee
+  ) {
+    return key in empl ? empl[key as keyof AllEmployee] : "-";
   }
 
-  function employeeParameterGetter<T extends AllEmployee>(
-    empl: Object,
-    key: keyof T
-  ) {
-    return employeeTypeChecker<T>(empl, key) ? empl[key] : "-";
-  }
+  // function employeeTypeChecker<TEmployee extends AllEmployee>(
+  //   empl: object,
+  //   key: keyof TEmployee
+  // ): empl is TEmployee {
+  //   return key in empl;
+  // }
+
+  // function employeeParameterGetter<TEmployee extends AllEmployee>(
+  //   empl: Object,
+  //   key: keyof TEmployee
+  // ) {
+  //   return employeeTypeChecker<TEmployee>(empl, key) ? empl[key] : "-";
+  // }
 
   return (
     <div className="w-[100%] bg-primary flex flex-col justify-start items-start gap-sm">
@@ -48,15 +52,17 @@ function EployeesList({ employees }: Props) {
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">{empl.id}</div>
             <div className="p-sm bg-grey font-bold w-[200px]">
-              {employeeParameterGetter<Manager>(empl, "phoneNumber")}
+              {employeeTypeChecker<Manager>(empl, "phoneNumber")}
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">
-              {employeeTypeChecker<Manager>(empl, "section")
+              {employeeTypeChecker<Manager>(empl, "section")}
+              {/* {employeeTypeChecker<Manager>(empl, "section")
                 ? Section[empl.section]
-                : "-"}
+                : "-"} */}
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">
-              {employeeParameterGetter<Assistant>(empl, "managerId")}
+              {employeeTypeChecker<Assistant>(empl, "managerId")}
+              {/* {employeeTypeChecker<Assistant>(empl, "managerId")} */}
             </div>
           </div>
         );

@@ -1,12 +1,6 @@
-import React from "react";
 import EployeesList from "./components/EployeesList";
-import {
-  AllEmployee,
-  AllEmployeeArr,
-  Section,
-} from "../../../dto/employees.dto";
 
-const dummyData: AllEmployeeArr = [
+const dummyData = [
   {
     id: 1,
     name: "John",
@@ -29,7 +23,7 @@ const dummyData: AllEmployeeArr = [
   },
 ];
 
-export default function Employees() {
+export default function EmployeesPage() {
   return (
     <div>
       <EployeesList employees={dummyData} />
