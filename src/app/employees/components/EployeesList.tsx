@@ -16,18 +16,28 @@ function EployeesList({ employees }: Props) {
     empl: AllEmployee,
     key: keyof TEmployee
   ) {
-    return key in empl ? empl[key as keyof AllEmployee] : "-";
+    if (key in empl) {
+      const tEmpl = empl as TEmployee;
+      return tEmpl[key];
+    } else return "-";
   }
 
   // function employeeTypeChecker<TEmployee extends AllEmployee>(
-  //   empl: object,
+  //   empl: AllEmployee,
+  //   key: keyof TEmployee
+  // ) {
+  //   return key in empl ? empl[key as keyof AllEmployee] : "-";
+  // }
+
+  // function employeeTypeChecker<TEmployee extends AllEmployee>(
+  //   empl: AllEmployee,
   //   key: keyof TEmployee
   // ): empl is TEmployee {
   //   return key in empl;
   // }
 
   // function employeeParameterGetter<TEmployee extends AllEmployee>(
-  //   empl: Object,
+  //   empl: AllEmployee,
   //   key: keyof TEmployee
   // ) {
   //   return employeeTypeChecker<TEmployee>(empl, key) ? empl[key] : "-";
