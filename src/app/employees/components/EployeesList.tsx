@@ -43,6 +43,27 @@ function EployeesList({ employees }: Props) {
   //   return employeeTypeChecker<TEmployee>(empl, key) ? empl[key] : "-";
   // }
 
+  function checker<TEmpl extends AllEmployee>(
+    empl: AllEmployee,
+    key: keyof TEmpl
+  ): empl is TEmpl {
+    return key in empl;
+  }
+
+  function valueGetter<TEmpl extends AllEmployee>(
+    empl: AllEmployee,
+    key: keyof TEmpl
+  ) {
+    return checker<TEmpl>(empl, key) ? empl[key] : "-";
+  }
+
+  function valueChecker<T extends AllEmployee>(
+    empl: AllEmployee,
+    key: keyof T
+  ): empl is T {
+    return key in empl;
+  }
+
   return (
     <div className="w-[100%] bg-primary flex flex-col justify-start items-start gap-sm">
       <div className="grid grid-cols-6 gap-xs">
@@ -62,7 +83,11 @@ function EployeesList({ employees }: Props) {
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">{empl.id}</div>
             <div className="p-sm bg-grey font-bold w-[200px]">
-              {employeeTypeChecker<Manager>(empl, "phoneNumber")}
+              {/* {employeeTypeChecker<Manager>(empl, "phoneNumber")} */}
+              {/* {valueGetter<Manager>(empl, "phoneNumber")} */}
+              {valueChecker<Manager>(empl, "phoneNumber")
+                ? empl.phoneNumber
+                : "-"}
             </div>
             <div className="p-sm bg-grey font-bold w-[200px]">
               {employeeTypeChecker<Manager>(empl, "section")}
